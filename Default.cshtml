@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Forms";
+
+    var db = Database.Open("Formstack");
+    var qry = "select * from Form";
+}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <h3>From a Database</h3>
+        <table>
+            @{
+                try
+                {
+                    var forms = db.Query(qry);
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                    </tr>
+
+                    foreach (var row in forms)
+                    {
+                        <tr class="dataClass">
+                            <td>@row.FormId</td>
+                            <td class="FormName">@row.FormName</td>
+                            <td class="FormDescription">@row.FormDescription</td>
+                            <td>@row.DateAdded</td>
+                        </tr>
+                    }
+                }
+                catch (Exception)
+                {
+                    <tr>
+                        <td style="color:red;font-weight:bold">Error, while trying to get the forms from the database!</td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <br /><br />
+
+        <h3>Hard-coded Values</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+
+            <tr class="dataClass">
+                <td>1</td>
+                <td class="FormName">Job Application</td>
+                <td class="FormDescription">Use this form to apply to different jobs.</td>
+                <td>09/20/2019 12:00:00 AM</td>
+            </tr>
+
+            <tr class="dataClass">
+                <td>2</td>
+                <td class="FormName">Online Shopp. Trends</td>
+                <td class="FormDescription">This form collects info about the new trends in Online Shopping.</td>
+                <td>10/25/2019 12:00:00 AM</td>
+            </tr>
+
+            <tr class="dataClass">
+                <td>3</td>
+                <td class="FormName">Customers Feedback</td>
+                <td class="FormDescription">This form gathers the customers feedback on our Deployment services.</td>
+                <td>11/30/2019 12:00:00 AM</td>
+            </tr>
+        </table>
+
+        <div id="dialog">
+            <p class="FormName" style="font-weight:bold"></p>
+            <p class="FormDescription"></p>
+        </div>
+    </div>
+</section>
+}
