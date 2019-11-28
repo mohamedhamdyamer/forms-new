@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $("#dialog").dialog({
-        title: "",
+        title: "Forms",
         autoOpen: false,
         modal: true,
         show: "blind",
